@@ -17,12 +17,8 @@ jobs:
           # Disabling shallow clone is recommended for improving relevancy of sonarqube reporting
           fetch-depth: 0
 
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '5.0.x'
-
-        
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3.2.0
 
       - name: Install dependencies
         run: dotnet restore
