@@ -78,6 +78,6 @@ jobs:
       #       echo "Created a new issue in Jira: $ISSUE_CREATE_RESPONSE"
             
             
-          else
-            echo "SonarQube analysis passed. No vulnerabilities found."
-          fi
+          # else
+          #   echo "SonarQube analysis passed. No vulnerabilities found."
+          # fi
