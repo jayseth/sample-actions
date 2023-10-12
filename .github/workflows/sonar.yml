@@ -1,12 +1,14 @@
 name:  Sonar Scan
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
+      - develop
 
 jobs:
   validate-changes:
