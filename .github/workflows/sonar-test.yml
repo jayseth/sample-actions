@@ -44,38 +44,38 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check for SonarQube Issues
-        run: |
-          report=$(curl --location 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=Github-Test-Org' \--header 'Authorization: Bearer ${{ secrets.SONAR_TOKEN }}')
+      # - name: Check for SonarQube Issues
+      #   run: |
+      #     report=$(curl --location 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=Github-Test-Org' \--header 'Authorization: Bearer ${{ secrets.SONAR_TOKEN }}')
           
-          status=$(echo "$report" | jq -r '.projectStatus.status')
-          result=$(echo "$report" | jq -r '.projectStatus.conditions[] | select(.status != "OK") | .metricKey + ": " + .actualValue + " / " + .errorThreshold + " (" + .status + ")"' | paste -sd, -)
+      #     status=$(echo "$report" | jq -r '.projectStatus.status')
+      #     result=$(echo "$report" | jq -r '.projectStatus.conditions[] | select(.status != "OK") | .metricKey + ": " + .actualValue + " / " + .errorThreshold + " (" + .status + ")"' | paste -sd, -)
           
 
-          if [ "$status" != "OK" ]; then
-            echo "SonarQube analysis failed! Vulnerabilities found."
+      #     if [ "$status" != "OK" ]; then
+      #       echo "SonarQube analysis failed! Vulnerabilities found."
             
-            echo "Creating JIRA Issue..."
+      #       echo "Creating JIRA Issue..."
             
-            JIRA_URL="https://jsjiraapp.atlassian.net/"
-            USERNAME=${{ secrets.JIRA_USERNAME }}
-            API_TOKEN=${{ secrets.JIRA_TOKEN }}
+      #       JIRA_URL="https://jsjiraapp.atlassian.net/"
+      #       USERNAME=${{ secrets.JIRA_USERNAME }}
+      #       API_TOKEN=${{ secrets.JIRA_TOKEN }}
 
-            ISSUE_CREATE_RESPONSE=$(curl -D- -u "$USERNAME:$API_TOKEN" -X POST --data "{
-                                    \"fields\": {
-                                      \"project\": {
-                                        \"key\": \"SON\"
-                                      },
-                                      \"summary\": \"SonarQube analysis failed with error code $status!\",
-                                      \"description\": \"$result\",
-                                      \"issuetype\": {
-                                        \"name\": \"Bug\"
-                                      }
-                                    }
-                                  }" -H "Content-Type: application/json" -v --url "$JIRA_URL/rest/api/2/issue")
+      #       ISSUE_CREATE_RESPONSE=$(curl -D- -u "$USERNAME:$API_TOKEN" -X POST --data "{
+      #                               \"fields\": {
+      #                                 \"project\": {
+      #                                   \"key\": \"SON\"
+      #                                 },
+      #                                 \"summary\": \"SonarQube analysis failed with error code $status!\",
+      #                                 \"description\": \"$result\",
+      #                                 \"issuetype\": {
+      #                                   \"name\": \"Bug\"
+      #                                 }
+      #                               }
+      #                             }" -H "Content-Type: application/json" -v --url "$JIRA_URL/rest/api/2/issue")
 
-            # Extract the issue key from the response
-            echo "Created a new issue in Jira: $ISSUE_CREATE_RESPONSE"
+      #       # Extract the issue key from the response
+      #       echo "Created a new issue in Jira: $ISSUE_CREATE_RESPONSE"
             
             
           else
