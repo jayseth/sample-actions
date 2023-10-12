@@ -1,10 +1,12 @@
 name:  Sonar Scan
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: 
-      - develop
+    branches:
+      - main
 
 jobs:
   validate-changes:
@@ -47,12 +49,37 @@ jobs:
       - name: Check for SonarQube Issues
         run: |
           report=$(curl --location 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=Github-Test-Org' \--header 'Authorization: Bearer ${{ secrets.SONAR_TOKEN }}')
-        
+          
           status=$(echo "$report" | jq -r '.projectStatus.status')
+          result=$(echo "$report" | jq -r '.projectStatus.conditions[] | select(.status != "OK") | .metricKey + ": " + .actualValue + " / " + .errorThreshold + " (" + .status + ")"' | paste -sd, -)
+          
 
-          if [ "$status" == "ERROR" ]; then
-            echo "SonarQube analysis failed. Vulnerabilities found."
-            exit 1
+          if [ "$status" != "OK" ]; then
+            echo "SonarQube analysis failed! Vulnerabilities found."
+            
+            echo "Creating JIRA Issue..."
+            
+            JIRA_URL="https://mysitetest16235.atlassian.net/"
+            USERNAME=${{ secrets.JIRA_USERNAME }}
+            API_TOKEN=${{ secrets.JIRA_TOKEN }}
+
+            ISSUE_CREATE_RESPONSE=$(curl -D- -u "$USERNAME:$API_TOKEN" -X POST --data "{
+                                    \"fields\": {
+                                      \"project\": {
+                                        \"key\": \"SON\"
+                                      },
+                                      \"summary\": \"SonarQube analysis failed with error code $status!\",
+                                      \"description\": \"$result\",
+                                      \"issuetype\": {
+                                        \"name\": \"Bug\"
+                                      }
+                                    }
+                                  }" -H "Content-Type: application/json" -v --url "$JIRA_URL/rest/api/2/issue")
+
+            # Extract the issue key from the response
+            echo "Created a new issue in Jira: $ISSUE_CREATE_RESPONSE"
+            
+            
           else
             echo "SonarQube analysis passed. No vulnerabilities found."
           fi
