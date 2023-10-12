@@ -67,7 +67,7 @@ jobs:
                                       \"summary\": \"SonarQube analysis failed with error code $status!\",
                                       \"description\": \"$result\",
                                       \"issuetype\": {
-                                        \"name\": \"Bug\"
+                                        \"name\": \"Task\"
                                       }
                                     }
                                   }" -H "Content-Type: application/json" -v --url "$JIRA_URL/rest/api/2/issue")
