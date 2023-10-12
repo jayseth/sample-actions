@@ -55,7 +55,7 @@ jobs:
             
             echo "Creating JIRA Issue..."
             
-            JIRA_URL="https://mysitetest16235.atlassian.net/"
+            JIRA_URL="https://jsjiraapp.atlassian.net/"
             USERNAME=${{ secrets.JIRA_USERNAME }}
             API_TOKEN=${{ secrets.JIRA_TOKEN }}
 
@@ -73,8 +73,8 @@ jobs:
                                   }" -H "Content-Type: application/json" -v --url "$JIRA_URL/rest/api/2/issue")
 
             # Extract the issue key from the response
-            echo "Created a new issue in Jira: $ISSUE_CREATE_RESPONSE"
-            
+            echo "Created a new issue in Jira"
+            exit 1
             
           else
             echo "SonarQube analysis passed. No vulnerabilities found."
