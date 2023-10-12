@@ -73,7 +73,7 @@ jobs:
                                   }" -H "Content-Type: application/json" -v --url "$JIRA_URL/rest/api/2/issue")
 
             # Extract the issue key from the response
-            echo "Created a new issue in Jira"
+            echo "Created a new issue in Jira, $ISSUE_CREATE_RESPONSE"
             exit 1
             
           else
