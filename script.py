@@ -5,7 +5,7 @@ import json
 sonar_url = 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=Github-Test-Org'
 
 # SonarQube authentication token
-sonar_token = ${{ secrets.SONAR_TOKEN }}
+sonar_token = os.environ['SONAR_TOKEN']
 
 # Set up headers for the request
 headers = {
@@ -34,8 +34,8 @@ if response.status_code == 200:
         
         # Creating JIRA Issue
         jira_url = 'https://jsjiraapp.atlassian.net/rest/api/2/issue'
-        jira_username = ${{ secrets.JIRA_USERNAME }}
-        jira_token = ${{ secrets.JIRA_TOKEN }}
+        jira_username = os.environ['JIRA_USERNAME']
+        jira_token = os.environ['JIRA_TOKEN']
         
         # Set up headers for the JIRA request
         jira_headers = {
