@@ -24,12 +24,7 @@ if response.status_code == 200:
     # Extract relevant information from the response
     status = report['projectStatus']['status']
     conditions = report['projectStatus']['conditions']
-    
-    # Filter conditions with status other than 'OK'
-    # failed_conditions = [f"{condition['metricKey']}: {condition['actualValue']} / {condition['errorThreshold']} ({condition['status']})"
-                         # for condition in conditions if condition['status'] != 'OK']
 
-    
     error_metrics = set()
 
     for condition in report['projectStatus']['conditions']:
@@ -40,17 +35,11 @@ if response.status_code == 200:
             metric_key = metric_key.replace('new_', '', 1)
             error_metrics.add(metric_key)
     
-    # result = ', '.join(failed_conditions)
-    
     if status != 'OK':
         print("SonarQube analysis failed! Vulnerabilities found.")
 
         error_message = "Your application did not pass the Quality gate since it has problems with these key metrics:"
 
-# Now you can pass the 'formatted_output' variable wherever needed in your script
-# For example, you might use it in logging, return it from a function, etc.
-
-        
         # Creating JIRA Issue
         jira_url = 'https://jsjiraapp.atlassian.net/rest/api/2/issue'
         jira_username = os.environ['JIRA_USERNAME']
