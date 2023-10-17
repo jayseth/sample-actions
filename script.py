@@ -44,7 +44,12 @@ if response.status_code == 200:
     
     if status != 'OK':
         print("SonarQube analysis failed! Vulnerabilities found.")
-        #print(result)
+
+        error_message = "Your application did not pass the Quality gate since it has problems with these key metrics:"
+
+# Now you can pass the 'formatted_output' variable wherever needed in your script
+# For example, you might use it in logging, return it from a function, etc.
+
         
         # Creating JIRA Issue
         jira_url = 'https://jsjiraapp.atlassian.net/rest/api/2/issue'
@@ -64,7 +69,7 @@ if response.status_code == 200:
             "fields": {
                 "project": {"key": "SON"},
                 "summary": f"SonarQube analysis failed!",
-                "description": f"Your application did not pass the Quality gate since it has problems with these key metrics: {error_metrics}",
+                "description": f"{error_message}\n" + "\n".join([f"{index}. {metric}" for index, metric in enumerate(error_metrics, start=1)]),
                 "issuetype": {"name": "Task"}
             }
         }
