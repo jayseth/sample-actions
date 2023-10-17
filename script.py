@@ -30,7 +30,7 @@ if response.status_code == 200:
                          # for condition in conditions if condition['status'] != 'OK']
 
     
-   error_metrics = set()
+    error_metrics = set()
 
     for condition in json_data['projectStatus']['conditions']:
         metric_key = condition['metricKey']
