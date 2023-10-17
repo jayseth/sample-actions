@@ -33,7 +33,7 @@ if response.status_code == 200:
     
     if status != 'OK':
         print("SonarQube analysis failed! Vulnerabilities found.")
-        print result
+        print(result)
         
         # Creating JIRA Issue
         jira_url = 'https://jsjiraapp.atlassian.net/rest/api/2/issue'
