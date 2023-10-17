@@ -22,8 +22,8 @@ if response.status_code == 200:
     print(report)
     
     # Extract relevant information from the response
-    # status = report['projectStatus']['status']
-    # conditions = report['projectStatus']['conditions']
+    status = report['projectStatus']['status']
+    conditions = report['projectStatus']['conditions']
     
     # Filter conditions with status other than 'OK'
     # failed_conditions = [f"{condition['metricKey']}: {condition['actualValue']} / {condition['errorThreshold']} ({condition['status']})"
