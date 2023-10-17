@@ -22,14 +22,28 @@ if response.status_code == 200:
     print(report)
     
     # Extract relevant information from the response
-    status = report['projectStatus']['status']
-    conditions = report['projectStatus']['conditions']
+    # status = report['projectStatus']['status']
+    # conditions = report['projectStatus']['conditions']
     
     # Filter conditions with status other than 'OK'
     # failed_conditions = [f"{condition['metricKey']}: {condition['actualValue']} / {condition['errorThreshold']} ({condition['status']})"
                          # for condition in conditions if condition['status'] != 'OK']
 
-    error_metrics = [condition['metricKey'] for condition in report['projectStatus']['conditions'] if condition['status'] != 'OK']
+    # Extract metrics with 'ERROR' status
+    error_metrics = []
+    processed_metrics = set()  # To keep track of processed metrics without 'new_' prefix
+
+    for condition in report['projectStatus']['conditions']:
+        metric_key = condition['metricKey']
+        # Check if the metric starts with 'new_' and its corresponding metric without 'new_' has not been processed
+        if metric_key.startswith('new_') and metric_key[4:] not in processed_metrics:
+            error_metrics.append(metric_key)
+            processed_metrics.add(metric_key)
+        elif metric_key.startswith('new_'):
+            # Skip processing if the corresponding metric without 'new_' has already been processed
+            continue
+        else:
+            error_metrics.append(metric_key)
     
     # result = ', '.join(failed_conditions)
     
