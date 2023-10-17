@@ -29,11 +29,7 @@ if response.status_code == 200:
     # failed_conditions = [f"{condition['metricKey']}: {condition['actualValue']} / {condition['errorThreshold']} ({condition['status']})"
                          # for condition in conditions if condition['status'] != 'OK']
 
-    # Load JSON data
-    data = json.loads(report)
-
-    # Extract metrics with 'ERROR' status
-    error_metrics = [condition['metricKey'] for condition in data['projectStatus']['conditions'] if condition['status'] != 'OK']
+    error_metrics = [condition['metricKey'] for condition in json_data['projectStatus']['conditions'] if condition['status'] != 'OK']
     
     # result = ', '.join(failed_conditions)
     
@@ -59,7 +55,7 @@ if response.status_code == 200:
             "fields": {
                 "project": {"key": "SON"},
                 "summary": f"SonarQube analysis failed!",
-                "description": error_metrics,
+                "description": f"Your application did not pass the Quality gate since it has problems with these key metrics: {error_metrics}",
                 "issuetype": {"name": "Task"}
             }
         }
