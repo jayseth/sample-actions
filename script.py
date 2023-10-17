@@ -35,14 +35,13 @@ if response.status_code == 200:
 
     for condition in report['projectStatus']['conditions']:
         metric_key = condition['metricKey']
-        # Check if the metric starts with 'new_' and its corresponding metric without 'new_' has not been processed
-        if metric_key.startswith('new_') and metric_key[4:] not in processed_metrics:
-            error_metrics.append(metric_key)
-            processed_metrics.add(metric_key)
-        elif metric_key.startswith('new_'):
-            # Skip processing if the corresponding metric without 'new_' has already been processed
-            continue
-        else:
+        # Check if the metric has 'ERROR' status and it starts with 'new_'
+        if condition['status'] == 'ERROR' and metric_key.startswith('new_'):
+            base_metric_key = metric_key[4:]
+            if base_metric_key not in processed_metrics:
+                error_metrics.append(metric_key)
+                processed_metrics.add(base_metric_key)
+        elif condition['status'] == 'ERROR':
             error_metrics.append(metric_key)
     
     # result = ', '.join(failed_conditions)
