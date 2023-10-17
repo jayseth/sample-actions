@@ -29,7 +29,7 @@ if response.status_code == 200:
     # failed_conditions = [f"{condition['metricKey']}: {condition['actualValue']} / {condition['errorThreshold']} ({condition['status']})"
                          # for condition in conditions if condition['status'] != 'OK']
 
-    error_metrics = [condition['metricKey'] for condition in json_data['projectStatus']['conditions'] if condition['status'] != 'OK']
+    error_metrics = [condition['metricKey'] for condition in report['projectStatus']['conditions'] if condition['status'] != 'OK']
     
     # result = ', '.join(failed_conditions)
     
