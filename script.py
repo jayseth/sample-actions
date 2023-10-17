@@ -34,7 +34,7 @@ if response.status_code == 200:
     error_metrics = set()
     processed_metrics = set()
 
-    for condition in json_data['projectStatus']['conditions']:
+    for condition in report['projectStatus']['conditions']:
         metric_key = condition['metricKey']
         # Check if the metric has 'ERROR' status
         if condition['status'] == 'ERROR':
