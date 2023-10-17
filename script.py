@@ -19,6 +19,7 @@ response = requests.get(sonar_url, headers=headers)
 # Check if the request was successful
 if response.status_code == 200:
     report = response.json()
+    print(report)
     
     # Extract relevant information from the response
     status = report['projectStatus']['status']
