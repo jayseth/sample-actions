@@ -49,3 +49,7 @@ jobs:
 
       - name: Make Python Requests
         run: python script.py
+        env: 
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JIRA_USERNAME: ${{ secrets.JIRA_USERNAME }}
+          JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
