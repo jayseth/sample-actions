@@ -55,4 +55,4 @@ jobs:
           pip install requests
 
       - name: Make Python Requests
-        run: python ../../script.py
+        run: python ../script.py
