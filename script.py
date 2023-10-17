@@ -30,22 +30,15 @@ if response.status_code == 200:
                          # for condition in conditions if condition['status'] != 'OK']
 
     
-    # Extract metrics with 'ERROR' status
-    error_metrics = set()
-    processed_metrics = set()
+   error_metrics = set()
 
-    for condition in report['projectStatus']['conditions']:
+    for condition in json_data['projectStatus']['conditions']:
         metric_key = condition['metricKey']
         # Check if the metric has 'ERROR' status
         if condition['status'] == 'ERROR':
-            if metric_key.startswith('new_'):
-                base_metric_key = metric_key[4:]
-                processed_metrics.add(base_metric_key)
-            else:
-                error_metrics.add(metric_key)
-
-    # Exclude metrics with 'new_' prefixes that have corresponding metrics without the 'new_' prefix
-    error_metrics -= processed_metrics  # To keep track of processed metrics without 'new_' prefix
+            # Remove 'new_' prefix if present
+            metric_key = metric_key.replace('new_', '', 1)
+            error_metrics.add(metric_key)
     
     # result = ', '.join(failed_conditions)
     
