@@ -27,7 +27,7 @@ if response.status_code == 200:
     
     # Filter conditions with status other than 'OK'
     # failed_conditions = [f"{condition['metricKey']}: {condition['actualValue']} / {condition['errorThreshold']} ({condition['status']})"
-                         for condition in conditions if condition['status'] != 'OK']
+                         # for condition in conditions if condition['status'] != 'OK']
 
     # Load JSON data
     data = json.loads(report)
