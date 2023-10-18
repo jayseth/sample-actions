@@ -5,26 +5,20 @@ on:
 
 jobs:
   BuildApp:
-      uses: ./.github/workflows/BuildDotnet.yml
+      uses: ./.github/workflows/SetupDotnet.yml
 
   SonarScan:
+      uses: ./.github/workflows/BuildScan.yml
+      needs: BuildApp
+
+  JIRA_Process:
     runs-on: ubuntu-latest
-    needs: BuildApp
     steps:
       - uses: actions/checkout@v2.2.0
         with:
+          # Disabling shallow clone is recommended for improving relevancy of sonarqube reporting
           fetch-depth: 0
           
-      - name: Sonarqube Begin
-        run: | 
-          dotnet tool install --global dotnet-sonarscanner
-          dotnet sonarscanner begin /o:jayseth /k:Github-Test-Org /d:sonar.login=${{ secrets.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/SonarQube.Analysis.xml /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-
-      - name: Sonarqube end
-        run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
