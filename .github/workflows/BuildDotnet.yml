@@ -1,6 +1,7 @@
 name:  Build Dontnet App
 
 on:
+  workflow_call:
   workflow_dispatch:
 
 jobs:
