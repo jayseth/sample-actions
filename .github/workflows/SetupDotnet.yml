@@ -1,4 +1,4 @@
-name:  Build Dontnet App
+name:  S Dontnet App
 
 on:
   workflow_call:
