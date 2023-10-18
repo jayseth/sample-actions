@@ -5,11 +5,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  app_process:
+  Dotnet_Process:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.2.0
         with:
+          # Disabling shallow clone is recommended for improving relevancy of sonarqube reporting
           fetch-depth: 0
 
       - name: Setup .NET Core SDK
@@ -17,7 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: dotnet restore
-          
+
       - name: Sonarqube Begin
         run: | 
           dotnet tool install --global dotnet-sonarscanner
