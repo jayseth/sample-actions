@@ -9,6 +9,7 @@ jobs:
 
   SonarScan:
     runs-on: ubuntu-latest
+    needs: BuildApp
     steps:
       - name: Sonarqube Begin
         run: | 
