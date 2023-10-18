@@ -6,6 +6,9 @@ on:
 jobs:
   SonarScan: 
     uses: ./.github/workflows/BuildScan.yml
+    secrets: inherit
 
   JIRA_Process:
+        needs: SonarScan
         uses: ./.github/workflows/Python_JIRA.yml
+        secrets: inherit
