@@ -4,12 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  BuildApp:
-      uses: ./.github/workflows/SetupDotnet.yml
-
   SonarScan:
       uses: ./.github/workflows/BuildScan.yml
-      needs: BuildApp
 
   JIRA_Process:
     needs: SonarScan
