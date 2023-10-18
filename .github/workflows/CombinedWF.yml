@@ -1,4 +1,4 @@
-name:  Sonar Scan with Python 
+name:  Combined Workflow
 
 on:
   workflow_dispatch:
