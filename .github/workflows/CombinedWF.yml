@@ -12,6 +12,7 @@ jobs:
       needs: BuildApp
 
   JIRA_Process:
+    needs: SonarScan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.2.0
