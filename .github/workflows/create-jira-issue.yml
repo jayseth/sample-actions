@@ -1,0 +1,47 @@
+name: Jira Issue
+
+on: 
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      project:
+        type: string
+        description: Jira Project Key
+        required: true
+      issue_type:
+        type: string
+        description: Type of Jira issue
+        default: Bug
+      title:
+        type: string
+        description: Title of the Jira issue
+        required: true
+      description:
+        type: string
+        description: Description of the Jira issue
+        required: true
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    name: Jira Example
+  
+    steps:
+    - name: Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    
+    - name: Create Jira Issue
+      id: create
+      uses: atlassian/gajira-create@v3
+      with:
+        project: ${{ inputs.project }}
+        issuetype: ${{ inputs.issue_type }}
+        summary: ${{ inputs.title }}
+        description: ${{ inputs.description }}
+
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"        
