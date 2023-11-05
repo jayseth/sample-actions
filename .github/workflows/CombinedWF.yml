@@ -8,7 +8,11 @@ jobs:
     uses: ./.github/workflows/BuildScan.yml
     secrets: inherit
 
-  JIRA_Process:
+  CodeQL: 
+    uses: ./.github/workflows/codeql-analysis.yml
+    secrets: inherit
+
+  SonarJIRA:
         needs: SonarScan
         uses: ./.github/workflows/Python_JIRA.yml
         secrets: inherit
