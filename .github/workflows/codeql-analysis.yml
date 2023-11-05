@@ -50,12 +50,3 @@ jobs:
     secrets: inherit
     permissions:
       security-events: read
-
-  # map_vulnerabilities_with_issue:
-  #   name: Create GitHub Issues
-  #   needs: analyze
-  #   uses: ./.github/workflows/test-api.yml
-  #   permissions: 
-  #     issues: write
-  #     security-events: read
-  #     actions: read
