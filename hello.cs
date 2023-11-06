@@ -11,6 +11,24 @@ public class Program
     System.String username = "testuser";
     System.String password = "testpass";
     CallApi(username, apiKey);
+    Console.WriteLine("Hello, World!");
+    String word = FindWord("byee");
+    Console.WriteLine(word);
+  }
+  public static String FindWord(String word){
+            bool isWord;
+            if(word == "hi"){
+
+            } else {
+                try
+                {
+                    Console.WriteLine("It is a word!");
+                    return word;
+                }
+                finally
+                {}
+            }
+            return null;
   }
   public static void ExecuteQuery(string userInput)    
   {         
