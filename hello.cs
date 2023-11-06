@@ -33,7 +33,6 @@ public class Program
   public static void ExecuteQuery(string userInput)    
   {         
     string query = "SELECT * FROM Users WHERE Username = '" + userInput + "'";         // Execute the query   
-    return null;
   }
   public static string DisplayMessage(string message)    
   {         
