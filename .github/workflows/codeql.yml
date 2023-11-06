@@ -38,10 +38,10 @@ jobs:
       with:
         category: "/language:${{matrix.language}}"
 
-  map_vulnerabilities_with_jira:
-    name: Create Jira Ticket
-    needs: analyze
-    uses: ./.github/workflows/get-codeql-vulnerability-details.yml
-    secrets: inherit
-    permissions:
-      security-events: read
+  # map_vulnerabilities_with_jira:
+  #   name: Create Jira Ticket
+  #   needs: analyze
+  #   uses: ./.github/workflows/get-codeql-vulnerability-details.yml
+  #   secrets: inherit
+  #   permissions:
+  #     security-events: read
