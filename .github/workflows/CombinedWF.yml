@@ -9,7 +9,7 @@ jobs:
     secrets: inherit
 
   CodeQL: 
-    uses: ./.github/workflows/codeql-analysis.yml
+    uses: ./.github/workflows/codeql.yml
     secrets: inherit
 
   SonarJIRA:
