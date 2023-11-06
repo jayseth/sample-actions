@@ -9,7 +9,7 @@ import requests
 # import json module
 import json
 
-token = os.environ['GH_TOKEN']
+token = os.environ['GITHUB_TOKEN']
 
 jira_username = os.environ['JIRA_USERNAME']
 jira_token = os.environ['JIRA_TOKEN']
