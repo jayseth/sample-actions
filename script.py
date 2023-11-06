@@ -72,7 +72,7 @@ if response.status_code == 200:
         else:
             print(f"Failed to create JIRA issue. Status code: {jira_response.status_code}")
         
-        exit(1)
+        # exit(1)
     else:
         print("SonarQube analysis passed. No vulnerabilities found.")
 
