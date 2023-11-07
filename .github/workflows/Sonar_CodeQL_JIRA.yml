@@ -1,4 +1,4 @@
-name:  Combined Workflow
+name:  Sonar CodeQL JIRA
 
 on:
   workflow_dispatch:
