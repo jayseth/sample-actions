@@ -5,7 +5,7 @@ on:
 
 jobs:
   SonarScan: 
-    uses: ./.github/workflows/BuildScan.yml
+    uses: ./.github/workflows/Dotnet_Build_Sonar_Scan.yml
     secrets: inherit
 
   CodeQL: 
@@ -14,5 +14,5 @@ jobs:
 
   SonarJIRA:
         needs: SonarScan
-        uses: ./.github/workflows/Python_JIRA.yml
+        uses: ./.github/workflows/Sonar_Python_Jira.yml
         secrets: inherit
