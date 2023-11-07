@@ -56,32 +56,6 @@ The application is a straightword DotNet App with a few vulnerabilities purposel
   6. Make Python Requests:
        The run step executes the script.py script using the Python interpreter. It also defines environment variables        for the script to use, including SONAR_TOKEN, JIRA_USERNAME, and JIRA_TOKEN, which are retrieved from GitHub          secrets.
 
-## Sonar JIRA Integration using Pyhton
-  1. Import Dependencies:
-       The script begins by importing necessary modules, including os for environment variables, requests for making         HTTP requests, and json for handling JSON data.
-  2. Define SonarQube API and Token:
-       The script defines the SonarQube API endpoint (sonar_url) and retrieves the SonarQube authentication token            from an environment variable (SONAR_TOKEN).
-  3. Set Up Headers for the Request:
-       The script sets up HTTP headers, including the authorization header with the SonarQube token, for making a            request to the SonarQube API.
-  4. Make a Request to SonarQube:
-       The script uses the requests.get method to send an HTTP GET request to the SonarQube API, including the               authentication headers.
-  5. Check Response Status:
-       The script checks if the response status code is 200 (indicating a successful request).
-  6. Extract and Process SonarQube Data:
-       If the response is successful, the script extracts and processes the JSON data from the response. It retrieves        the project's status and conditions.
-  7. Identify Error Metrics:
-       The script iterates through the conditions and identifies metrics with 'ERROR' status, removing the 'new_'            prefix if present. These metrics are added to the error_metrics set.
-  8. Quality Gate Status Check:
-       The script checks the overall project status. If it's not 'OK,' indicating issues with the quality gate, the          script proceeds to create a JIRA issue.
-  9. Create a JIRA Issue:
-        If the quality gate status is not 'OK,' the script creates a JIRA issue. It retrieves the JIRA username and           token from environment variables, sets up headers and authentication for the JIRA request, and constructs a           JIRA issue payload with a summary and description that includes information about the error metrics.
-  10. Check JIRA Issue Creation:
-        The script checks if the JIRA issue creation was successful (status code 201). If successful, it prints a             message indicating that a new issue was created in JIRA. If not, it prints an error message.
-  11. Exit Code Handling:
-        The script uses exit(1) to exit with a non-zero status code if the quality gate is not passed. This non-zero          exit code can be used in CI/CD pipelines to indicate a failure.
-  12. Final Output:
-        The script prints messages indicating whether the SonarQube analysis passed without issues or if there were           vulnerabilities detected.
-
 ## Combining the Workflows
   1. Workflow Configuration:
        The workflow is named "Combined Workflow" and is triggered manually using workflow_dispatch.
