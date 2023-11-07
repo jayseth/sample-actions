@@ -23,7 +23,7 @@ jobs:
           pip install requests
 
       - name: Make Python Requests
-        run: python script.py
+        run: python ./.github/scripts/sonar-create-jira-issue.py
         env: 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           JIRA_USERNAME: ${{ secrets.JIRA_USERNAME }}
