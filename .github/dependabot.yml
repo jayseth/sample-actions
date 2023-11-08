@@ -1,0 +1,17 @@
+version: 2
+updates:
+ # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+  # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows`. You can use `directory: "/"`.)
+    directory: /
+    schedule:
+    # Need to define how often to check for new versions for each package manager. Either daily, weekly, or monthly
+      interval: weekly
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
