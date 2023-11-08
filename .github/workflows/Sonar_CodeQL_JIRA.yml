@@ -16,3 +16,6 @@ jobs:
         needs: SonarScan
         uses: ./.github/workflows/Sonar_Python_Jira.yml
         secrets: inherit
+
+  Dependabot:
+    uses: ./.github/workflows/dependabot_scanning.yml
