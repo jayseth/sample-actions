@@ -13,6 +13,17 @@ jobs:
           # Disabling shallow clone is recommended for improving relevancy of sonarqube reporting
           fetch-depth: 0
 
+      - name: Set up HashiCorp Vault 
+        uses: hashicorp/vault-action@v2 
+        with: 
+         #Reading secrets from Github secrets 
+          url: "${{ secrets.VAULT_URL }}" 
+          token: "${{ secrets.VAULT_SECRET }}" 
+          tlsSkipVerify: true 
+          #Reading secrets from hashicorp vault 
+          secrets: | 
+            secret/githubactions/SONAR_TOKEN |SONAR_TOKEN
+
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3.2.0
 
@@ -22,7 +33,7 @@ jobs:
       - name: Sonarqube Begin
         run: | 
           dotnet tool install --global dotnet-sonarscanner
-          dotnet sonarscanner begin /o:jayseth /k:Github-Test-Org /d:sonar.login=${{ secrets.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/SonarQube.Analysis.xml /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet sonarscanner begin /o:jayseth /k:Github-Test-Org /d:sonar.login=${{ env.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/SonarQube.Analysis.xml /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
 
       - name: Build
         run: |
