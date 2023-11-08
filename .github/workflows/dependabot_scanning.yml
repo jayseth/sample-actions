@@ -1,7 +1,9 @@
 # This workflow will build a GitHub Dependabot project
 
 name: 'Dependency Review'
-on: workflow_call
+on: 
+  workflow_call:
+  workflow_dispatch:
 
 permissions:
   contents: read
