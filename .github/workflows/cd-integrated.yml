@@ -1,4 +1,4 @@
-name: "Integrated Continuous Deployment"
+name: "CD - Integrated Workflow"
 on:
   workflow_dispatch:
 
