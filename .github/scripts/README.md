@@ -1,4 +1,4 @@
-## Contents of this folder
+## Contents of .github/scripts folder
 
 ### `codeql-create-jira-issue.py` is a python script that does the following:
 - gets details of CodeQL scan alerts from GitHub
