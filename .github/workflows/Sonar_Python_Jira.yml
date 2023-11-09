@@ -12,6 +12,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up HashiCorp Vault 
+        uses: hashicorp/vault-action@v2 
+        with: 
+         #Reading secrets from Github secrets 
+          url: "${{ secrets.VAULT_URL }}" 
+          token: "${{ secrets.VAULT_SECRET }}" 
+          tlsSkipVerify: true 
+          #Reading secrets from hashicorp vault 
+          secrets: | 
+            secret/data/githubactions JIRA_USERNAME |JIRA_USERNAME;
+            secret/data/githubactions JIRA_TOKEN |JIRA_TOKEN;
+            secret/data/githubactions SONAR_TOKEN |SONAR_TOKEN
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -25,6 +38,6 @@ jobs:
       - name: Make Python Requests
         run: python ./.github/scripts/sonar-create-jira-issue.py
         env: 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          JIRA_USERNAME: ${{ secrets.JIRA_USERNAME }}
-          JIRA_TOKEN: ${{ secrets.JIRA_TOKEN }}
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          JIRA_USERNAME: ${{ env.JIRA_USERNAME }}
+          JIRA_TOKEN: ${{ env.JIRA_TOKEN }}
