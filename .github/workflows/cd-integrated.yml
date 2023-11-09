@@ -3,14 +3,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  download-artifact:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.artifact_name }}
-          path: ''
+
+  selenium:
+    uses: ./.github/workflows/scrape.yml
   
   blazemeter:
     uses: ./.github/workflows/blazemeter.yml
