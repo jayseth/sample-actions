@@ -1,3 +1,5 @@
+## Contents of .github/workflows folder
+
 ### `Dotnet_Build_Sonar_Scan.yml` is a GitHub workflow that does the following:
 - Builds the Dotnet App and Scans it using SonarQube Scan uploading the results to SonarQube Quality Gate
 
