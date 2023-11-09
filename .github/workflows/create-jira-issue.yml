@@ -1,4 +1,4 @@
-name: Jira Issue
+name: Create Jira Issue
 
 on: 
   workflow_dispatch:
