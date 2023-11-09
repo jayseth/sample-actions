@@ -5,6 +5,10 @@
 - gets details of existing Jira bugs from Jira which is then used to test for duplicates
 - compiles and creates a json consisting of details required to create Jira bugs which is then passed as a job output to the workflow that calls this script
 
+### `scraper.py` is a python script that does the following:
+- verifies page and driver instance for Selenium testing
+- accesses webdriver objects to scrape for particular page elements as part of selenium testing
+
 ### `sonar-create-jira-issue.py` is a pyhton script that does the following:
 - Import Dependencies:
        The script begins by importing necessary modules, including os for environment variables, requests for making         HTTP requests, and json for handling JSON data.
