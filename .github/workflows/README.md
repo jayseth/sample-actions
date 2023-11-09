@@ -15,11 +15,12 @@
 ### `ci_githubaction_main.yml` is a GitHub workflow that does the following:
 - calls all the CI workflows and runs them as a single integrated workflow
 
-### `codeql-create-jira-issue.yml` is a GitHub workflow that does the following:
-- creates Jira bugs using the json output from the `get-codeql-vulnerability-details.yml` workflow
-
 ### `codeql.yml` is a GitHub workflow that does the following:
 - performs CodeQL analysis on the codebase and uploads the results to GitHub under the Security tab
+
+### `create-jira-issue.yml` is a GitHub workflow that does the following:
+- logs in to Jira instance
+- creates Jira issues based on inputs passed to it for the project key, issue type, title and description
 
 ### `dependabot_scanning.yml` is a GitHub workflow that does the following:
 - performs Dependency review on the code base and uploads the results to GitHub under Security Dependabot alerts tab
