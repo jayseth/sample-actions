@@ -4,14 +4,23 @@
 ### `Sonar_Python_Jira.yml` is a GitHub workflow that does the following:
 - Retrieves SonarQube Quality Gate status and creates JIRA Issues if any vulnerabilities are detected
 
-### `codeql.yml` is a GitHub workflow that does the following:
-- performs CodeQL analysis on the codebase and uploads the results to GitHub under the Security tab
- 
-### `get-codeql-vulnerability-details.yml` is a GitHub workflow that does the following:
-- calls and executes the `codeql-create-jira-issue.yml` script and passes the json output to the next workflow
- 
+### `blazemeter.yml` is a GitHub workflow that does the following:
+- perform Blazemeter testing on the codebase and publishes the results in a specified UI
+
+### `cd-integrated.yml` is a GitHub workflow that does the following:
+- calls all the CD workflows and runs them as a single integrated workflow
+
+### `ci_githubaction_main.yml` is a GitHub workflow that does the following:
+- calls all the CI workflows and runs them as a single integrated workflow
+
 ### `codeql-create-jira-issue.yml` is a GitHub workflow that does the following:
 - creates Jira bugs using the json output from the `get-codeql-vulnerability-details.yml` workflow
 
-### `Sonar_CodeQL_JIRA.yml` is a GitHub workflow that does the following:
-- Combines all the above workflows and runs them as a single integrated workflow
+### `codeql.yml` is a GitHub workflow that does the following:
+- performs CodeQL analysis on the codebase and uploads the results to GitHub under the Security tab
+
+### `dependabot_scanning.yml` is a GitHub workflow that does the following:
+- performs Dependency review on the code base and uploads the results to GitHub under Security Dependabot alerts tab
+ 
+### `get-codeql-vulnerability-details.yml` is a GitHub workflow that does the following:
+- calls and executes the `codeql-create-jira-issue.yml` script and passes the json output to the next workflow
