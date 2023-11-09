@@ -1,4 +1,4 @@
-name:  Sonar CodeQL JIRA
+name:  CI - Integrated Workflow
 
 on:
   workflow_dispatch:
