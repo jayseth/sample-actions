@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  jfrog:
     runs-on: ubuntu-latest
     steps:
       -
@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: githubactions/dotnetsample:latest
+          tags: jsartifactory01.jfrog.io/docker-local/dotnetsample:latest
