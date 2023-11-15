@@ -2,29 +2,43 @@ name: Docker Image
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   jfrog:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Set up HashiCorp Vault 
+        uses: hashicorp/vault-action@v2 
+        with: 
+         #Reading secrets from Github secrets 
+          url: "${{ secrets.VAULT_URL }}" 
+          token: "${{ secrets.VAULT_SECRET }}" 
+          tlsSkipVerify: true 
+          #Reading secrets from hashicorp vault 
+          secrets: | 
+            secret/data/githubactions JFROG_REPO |JFROG_REPO;
+            secret/data/githubactions JFROG_TOKEN |JFROG_TOKEN;
+            secret/data/githubactions JFROG_URL |JFROG_URL;
+            secret/data/githubactions JFROG_USERNAME |JFROG_USERNAME;
+            
+      - name: Checkout
         uses: actions/checkout@v4
-      -
-        name: Login to Docker Hub
+      
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: jsartifactory01.jfrog.io
-          username: githubactions
-          password: eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiJvc1ZGbGNudWV0UlE2YklVS2pzRU5xYkg3RnM3LVFXQTdkdWJoUWtCS1RRIn0.eyJzdWIiOiJqZmFjQDAxaGY4cTdkNnp6MXMxMGJrOHE1NDAxbXJiL3VzZXJzL2dpdGh1YmFjdGlvbnMiLCJzY3AiOiJhcHBsaWVkLXBlcm1pc3Npb25zL2FkbWluIiwiYXVkIjoiKkAqIiwiaXNzIjoiamZmZUAwMWhmOHE3ZDZ6ejFzMTBiazhxNTQwMW1yYiIsImlhdCI6MTcwMDA0NDUwNywianRpIjoiYWE3NmM0NzctNTFkNS00ZWFiLTgyZDMtYzU5MGU5ODI0ODIyIn0.L1WNC2uUEsU2GGgur5NlQCKoJ-cdFDlUEA322L3Z_K7v2sJwbYPpxGvutfiG4HTVO_2u9uYVFjcvoT85dA7nCSGZVKObgUhqiI9jWlnadEXJr3gtjzOPqg4v8B6kC4cwnrf29OPD-lYaNhcHEWN6iRqLYxlaVTrG5QOZa1neQDv9_GQt7Rre33I-E04hUEZGETd-uq7R4RAnFu3Tb-hcRrklWnzC0yjOnYtcvr1V66Y0RKvSCiKlTbFXgkHSLZgclPixyRlmtFn6wfvgtIEtDxOBufaPB-VyBl-vfBr8fm09Gk9HkkMITn3Zvsov-HTEfPv5RiEuby72Z5kuagfhoQ
-      -
-        name: Set up Docker Buildx
+          registry: ${{ env.JFROG_URL }}
+          username: ${{ env.JFROG_USERNAME }}
+          password: ${{ env.JFROG_TOKEN }}
+      
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      -
-        name: Build and push
+      
+      - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: jsartifactory01.jfrog.io/docker-local/dotnetsample:latest
+          tags: ${{ env.JFROG_URL }}/${{ env.JFROG_REPO }}/dotnetsample:latest
