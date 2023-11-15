@@ -4,7 +4,7 @@ name: 'Dependency Review'
 on: 
   workflow_call:
   workflow_dispatch:
-  pull_request:
+  # pull_request:
 
 permissions:
   contents: read
@@ -15,8 +15,9 @@ jobs:
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@v4
+      
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
-        with:
-          config-file: './action.yml'
+        # with:
+        #   config-file: './action.yml'
           
