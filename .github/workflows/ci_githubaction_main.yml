@@ -19,3 +19,9 @@ jobs:
 
   Dependabot:
     uses: ./.github/workflows/dependabot_scanning.yml
+
+  JFROG_Publish:
+    uses: ./.github/workflows/jfrog.yml
+    needs: [SonarScan, CodeQL, SonarJIRA, Dependabot]
+    secrets: inherit
+    
