@@ -11,7 +11,7 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 # Use a lighter base image for the runtime
-FROM mcr.microsoft.com/dotnet/runtime:5.0
+FROM mcr.microsoft.com/dotnet/runtime:8.0
 
 # Set the working directory to /app
 WORKDIR /app
