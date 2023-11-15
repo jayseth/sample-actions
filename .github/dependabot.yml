@@ -6,12 +6,13 @@ updates:
     directory: /
     schedule:
     # Need to define how often to check for new versions for each package manager. Either daily, weekly, or monthly
-      interval: weekly
+      interval: daily
 
-  - package-ecosystem: npm
-    directory: /
+  # Enable version updates for Docker
+  - package-ecosystem: "docker"
+    # Look for a `Dockerfile` in the `root` directory
+    directory: "/"
+    # Check for updates once a week
     schedule:
-      interval: weekly
-    ignore:
-      - dependency-name: '@types/node'
-        update-types: ['version-update:semver-major']
+      # interval: "daily"
+      interval: "weekly"
