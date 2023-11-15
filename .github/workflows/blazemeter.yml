@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
       
       - name: Run Blazemeter test          
         uses: BlazeRunner-BZR/Github-Action@v8.1
