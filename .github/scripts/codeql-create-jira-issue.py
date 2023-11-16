@@ -45,7 +45,7 @@ for issue in issue_list:
 # store API url
 env_url = os.environ['API_URL']
 print(env_url)
-url = f"https://api.github.com/{env_url}"
+url = f"{env_url}"
 print(url)
 
 # assign the headers- not always necessary, but something we have to do with the GitHub API
