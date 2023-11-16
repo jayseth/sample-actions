@@ -14,7 +14,7 @@ token = os.environ['GITHUB_TOKEN']
 jira_username = os.environ['JIRA_USERNAME']
 jira_token = os.environ['JIRA_TOKEN']
 
-jira_url = 'https://jsjiraapp.atlassian.net/rest/api/3/search'
+jira_url = os.environ['JIRA_URL']
 
 jira_params = {
   'jql': 'project=STP',
@@ -43,7 +43,7 @@ for issue in issue_list:
   issue_codeql_list.append(jira_issue_title)
 
 # store API url
-url = 'https://api.github.com/repos/jayseth/sample-actions/code-scanning/alerts'
+url = os.environ['API_URL']
 
 # assign the headers- not always necessary, but something we have to do with the GitHub API
 headers = {'Accept': 'application/vnd.github+json',
