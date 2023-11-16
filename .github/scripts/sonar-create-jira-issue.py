@@ -2,8 +2,9 @@ import os
 import requests
 import json
 
+sonar_org = os.environ['SONAR_ORG']
 # SonarQube API endpoint
-sonar_url = 'https://sonarcloud.io/api/qualitygates/project_status?projectKey=Github-Test-Org'
+sonar_url = f"https://sonarcloud.io/api/qualitygates/project_status?projectKey={sonar_org}"
 
 # SonarQube authentication token
 sonar_token = os.environ['SONAR_TOKEN']
@@ -41,7 +42,8 @@ if response.status_code == 200:
         error_message = "Your application did not pass the Quality gate since it has problems with these key metrics:"
 
         # Creating JIRA Issue
-        jira_url = f"os.environ['JIRA_BASE_URL']rest/api/2/issue"
+        jira_base_url = os.environ['JIRA_BASE_URL']
+        jira_url = f"{jira_base_url}rest/api/2/issue"
         jira_username = os.environ['JIRA_USERNAME']
         jira_token = os.environ['JIRA_TOKEN']
         
