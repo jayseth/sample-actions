@@ -22,7 +22,9 @@ jobs:
           tlsSkipVerify: true 
           #Reading secrets from hashicorp vault 
           secrets: | 
-            secret/data/githubactions SONAR_TOKEN |SONAR_TOKEN
+            secret/data/githubactions SONAR_TOKEN |SONAR_TOKEN;
+            secret/data/githubactions SONAR_PROJECT |SONAR_PROJECT;
+            secret/data/githubactions SONAR_ORG |SONAR_ORG
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v3.2.0
@@ -33,7 +35,7 @@ jobs:
       - name: Sonarqube Begin
         run: | 
           dotnet tool install --global dotnet-sonarscanner
-          dotnet sonarscanner begin /o:jayseth /k:Github-Test-Org /d:sonar.login=${{ env.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/SonarQube.Analysis.xml /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet sonarscanner begin /o:${{ env.SONAR_PROJECT }} /k:${{ env.SONAR_ORG }} /d:sonar.login=${{ env.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/SonarQube.Analysis.xml /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
 
       - name: Build
         run: |
