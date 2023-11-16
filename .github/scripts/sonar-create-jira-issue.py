@@ -41,7 +41,7 @@ if response.status_code == 200:
         error_message = "Your application did not pass the Quality gate since it has problems with these key metrics:"
 
         # Creating JIRA Issue
-        jira_url = os.environ['JIRA_URL']
+        jira_url = f"os.environ['JIRA_BASE_URL']rest/api/2/issue"
         jira_username = os.environ['JIRA_USERNAME']
         jira_token = os.environ['JIRA_TOKEN']
         
