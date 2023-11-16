@@ -24,7 +24,8 @@ jobs:
             secret/data/githubactions JIRA_USERNAME |JIRA_USERNAME;
             secret/data/githubactions JIRA_TOKEN |JIRA_TOKEN;
             secret/data/githubactions SONAR_TOKEN |SONAR_TOKEN;
-            secret/data/githubactions JIRA_BASE_URL |JIRA_BASE_URL
+            secret/data/githubactions JIRA_BASE_URL |JIRA_BASE_URL;
+            secret/data/githubactions SONAR_ORG |SONAR_ORG
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -43,3 +44,4 @@ jobs:
           JIRA_USERNAME: ${{ env.JIRA_USERNAME }}
           JIRA_TOKEN: ${{ env.JIRA_TOKEN }}
           JIRA_URL: ${{ env.JIRA_BASE_URL }}
+          SONAR_ORG: ${{ env.SONAR_ORG }}
