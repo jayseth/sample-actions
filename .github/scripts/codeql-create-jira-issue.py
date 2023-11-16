@@ -13,8 +13,8 @@ token = os.environ['GITHUB_TOKEN']
 
 jira_username = os.environ['JIRA_USERNAME']
 jira_token = os.environ['JIRA_TOKEN']
-
-jira_url = os.environ['JIRA_URL']
+jira_base_url = os.environ['JIRA_BASE_URL']
+jira_url = f"{jira_base_url}rest/api/3/search"
 
 jira_params = {
   'jql': 'project=STP',
