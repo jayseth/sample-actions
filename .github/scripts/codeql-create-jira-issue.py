@@ -14,7 +14,7 @@ token = os.environ['GITHUB_TOKEN']
 jira_username = os.environ['JIRA_USERNAME']
 jira_token = os.environ['JIRA_TOKEN']
 jira_base_url = os.environ['JIRA_BASE_URL']
-jira_url = f"{jira_base_url}/rest/api/3/search"
+jira_url = f"{jira_base_url}rest/api/3/search"
 
 jira_params = {
   'jql': 'project=STP',
@@ -43,7 +43,7 @@ for issue in issue_list:
   issue_codeql_list.append(jira_issue_title)
 
 # store API url
-env_url = os.environ['API_URL']
+env_url = os.environ.get('API_URL')
 print(env_url)
 url = f"{env_url}"
 print(url)
