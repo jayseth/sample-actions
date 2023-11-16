@@ -43,9 +43,9 @@ for issue in issue_list:
   issue_codeql_list.append(jira_issue_title)
 
 # store API url
-env_url = os.environ.get('API_URL')
+env_url = os.environ['API_URL']
 print(env_url)
-url = f"{env_url}"
+url = f"https://api.github.com/{env_url}"
 print(url)
 
 # assign the headers- not always necessary, but something we have to do with the GitHub API
