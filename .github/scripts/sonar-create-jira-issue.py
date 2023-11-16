@@ -41,7 +41,7 @@ if response.status_code == 200:
         error_message = "Your application did not pass the Quality gate since it has problems with these key metrics:"
 
         # Creating JIRA Issue
-        jira_url = 'https://jsjiraapp.atlassian.net/rest/api/2/issue'
+        jira_url = os.environ['JIRA_URL']
         jira_username = os.environ['JIRA_USERNAME']
         jira_token = os.environ['JIRA_TOKEN']
         
