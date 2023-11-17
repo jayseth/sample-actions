@@ -4,7 +4,7 @@ env:
   createTest: "true"
   inputStartFile: "./.github/blazemeter/PerfTest01.jmx"
   testName: "SampleTest"
-  projectID: "20231117"
+  projectID: "2203513"
   #testID: "13554278"
   continuePipeline: "false"
   showTailLog: "false"
