@@ -32,7 +32,7 @@ jobs:
           tlsSkipVerify: true 
           #Reading secrets from hashicorp vault 
           secrets: | 
-            secret/data/githubactions BLAZE_API_KEY | apiKey
+            secret/data/githubactions BLAZE_API_KEY | apiKey;
             secret/data/githubactions BLAZE_API_SECRET | apiSecret
       
       - name: Run Blazemeter test          
