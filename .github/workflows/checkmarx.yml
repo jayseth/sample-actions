@@ -1,0 +1,54 @@
+name: Checkmarx Scan
+
+on:
+  workflow_call:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    # branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    runs-on: dindrunner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Checkmarx scan
+        run: echo "Checkmarx scan ongoing..."
+
+    #   - name: Set up HashiCorp Vault 
+    #     uses: hashicorp/vault-action@v2 
+    #     with: 
+    #       #Reading secrets from Github secrets 
+    #       url: "${{ secrets.VAULT_URL }}" 
+    #       token: "${{ secrets.VAULT_SECRET }}" 
+    #       tlsSkipVerify: true 
+    #       #Reading secrets from hashicorp vault 
+    #       secrets: | 
+    #         secret/data/githubactions CX_BASE_URI | CX_BASE_URI
+    #         secret/data/githubactions CX_CLIENT_ID | CX_CLIENT_ID
+    #         secret/data/githubactions CX_CLIENT_SECRET | CX_CLIENT_SECRET
+    #         secret/data/githubactions CX_TENANT | CX_TENANT
+
+    #   - name: Checkmarx One scan
+    #     uses: checkmarx/ast-github-action@v2.0.21
+    #     with:
+    #       base_uri: ${{ env.CX_BASE_URI }}
+    #       cx_client_id: ${{ env.CX_CLIENT_ID }}
+    #       cx_client_secret: ${{ env.CX_CLIENT_SECRET }}
+    #       cx_tenant: ${{ env.CX_TENANT }}
+    #       additional_params: --report-format sarif --output-path .
+      
+    #   - name: Upload SARIF file
+    #     uses: github/codeql-action/upload-sarif@v2
+    #     with:
+    #       sarif_file: cx_result.sarif
