@@ -7,13 +7,32 @@ public class Program
   public static void Main()
   {
     ExecuteQuery("Jay");
-    Console.WriteLine("Hello world, this is the newer code");
+    Console.WriteLine("Hello world, this is the new code");
     System.String username = "testuser";
+    System.String password = "testpass";
     CallApi(username, apiKey);
+    Console.WriteLine("Hello, World!");
+    String word = FindWord("byee");
+    Console.WriteLine(word);
+  }
+  public static String FindWord(String word){
+            bool isWord;
+            if(word == "hi"){
+
+            } else {
+                try
+                {
+                    Console.WriteLine("It is a word!");
+                    return word;
+                }
+                finally
+                {}
+            }
+            return null;
   }
   public static void ExecuteQuery(string userInput)    
   {         
-    string query = "SELECT * FROM Users WHERE Username = '" + userInput + "'";         // Execute the query    
+    string query = "SELECT * FROM Users WHERE Username = '" + userInput + "'";         // Execute the query   
   }
   public static string DisplayMessage(string message)    
   {         

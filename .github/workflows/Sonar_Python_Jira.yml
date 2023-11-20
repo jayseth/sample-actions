@@ -1,0 +1,47 @@
+name:  Integrate JIRA
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  JIRA_Process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.2.0
+        with:
+          fetch-depth: 0
+
+      - name: Set up HashiCorp Vault 
+        uses: hashicorp/vault-action@v2 
+        with: 
+         #Reading secrets from Github secrets 
+          url: "${{ secrets.VAULT_URL }}" 
+          token: "${{ secrets.VAULT_SECRET }}" 
+          tlsSkipVerify: true 
+          #Reading secrets from hashicorp vault 
+          secrets: | 
+            secret/data/githubactions JIRA_USERNAME |JIRA_USERNAME;
+            secret/data/githubactions JIRA_TOKEN |JIRA_TOKEN;
+            secret/data/githubactions SONAR_TOKEN |SONAR_TOKEN;
+            secret/data/githubactions JIRA_BASE_URL |JIRA_BASE_URL;
+            secret/data/githubactions SONAR_ORG |SONAR_ORG
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Make Python Requests
+        run: python ./.github/scripts/sonar-create-jira-issue.py
+        env: 
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          JIRA_USERNAME: ${{ env.JIRA_USERNAME }}
+          JIRA_TOKEN: ${{ env.JIRA_TOKEN }}
+          JIRA_URL: ${{ env.JIRA_BASE_URL }}
+          SONAR_ORG: ${{ env.SONAR_ORG }}

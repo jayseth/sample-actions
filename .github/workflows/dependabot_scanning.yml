@@ -1,0 +1,25 @@
+# This workflow will build a GitHub Dependabot project
+
+name: 'Dependency Review'
+on: 
+  workflow_call:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v2
+      
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v3
+        with:
+          config-file: './.github/dependency-review-config.yml'
+          base-ref: ${{ github.ref }}
+          head-ref: ${{ github.ref }}
+          

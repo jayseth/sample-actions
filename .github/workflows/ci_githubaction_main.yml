@@ -1,0 +1,31 @@
+name:  CI - Integrated Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  SonarScan: 
+    uses: ./.github/workflows/Dotnet_Build_Sonar_Scan.yml
+    secrets: inherit
+
+  CodeQL: 
+    uses: ./.github/workflows/codeql.yml
+    secrets: inherit
+
+  SonarJIRA:
+        needs: SonarScan
+        uses: ./.github/workflows/Sonar_Python_Jira.yml
+        secrets: inherit
+
+  Dependabot:
+    uses: ./.github/workflows/dependabot_scanning.yml
+
+  Checkmarx:
+    uses: ./.github/workflows/checkmarx.yml
+    secrets: inherit
+
+  JFROG_Publish:
+    uses: ./.github/workflows/jfrog.yml
+    needs: [SonarScan, CodeQL, SonarJIRA, Dependabot, Checkmarx]
+    secrets: inherit
+    

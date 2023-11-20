@@ -1,0 +1,54 @@
+name: "Blazemeter"
+
+env:
+  createTest: "true"
+  inputStartFile: "./.github/blazemeter/PerfTest01.jmx"
+  testName: "SampleTest"
+  projectID: "2203513"
+  #testID: "13554278"
+  continuePipeline: "false"
+  showTailLog: "false"
+  reportName: Test1711
+  duration: 2
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    # runs-on: dindrunner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repo checkout
+        uses: actions/checkout@v3
+
+      - name: Set up HashiCorp Vault 
+        uses: hashicorp/vault-action@v2 
+        with: 
+          #Reading secrets from Github secrets 
+          url: "${{ secrets.VAULT_URL }}" 
+          token: "${{ secrets.VAULT_SECRET }}" 
+          tlsSkipVerify: true 
+          #Reading secrets from hashicorp vault 
+          secrets: | 
+            secret/data/githubactions BLAZE_API_KEY | apiKey ;
+            secret/data/githubactions BLAZE_API_SECRET | apiSecret
+      
+      - name: Run Blazemeter test          
+        uses: BlazeRunner-BZR/Github-Action@v8.2
+        id: run-test
+        with:
+          apiKey: ${{env.apiKey}}
+          apiSecret: ${{env.apiSecret}}
+          createTest: ${{env.createTest}}
+          inputStartFile: ${{env.inputStartFile}}
+          testName: ${{env.testName}}
+          projectID: ${{env.projectID}}
+          # testID: ${{vars.testID}}
+          reportName: ${{env.reportName}}
+          continuePipeline: ${{env.continuePipeline}}
+          showTailLog: ${{env.showTailLog}}
+          duration: ${{env.duration}}

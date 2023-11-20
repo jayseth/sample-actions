@@ -1,0 +1,60 @@
+name: Create Jira Issue
+
+on: 
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      project:
+        type: string
+        description: Jira Project Key
+        required: true
+      issue_type:
+        type: string
+        description: Type of Jira issue
+        default: Bug
+      title:
+        type: string
+        description: Title of the Jira issue
+        required: true
+      description:
+        type: string
+        description: Description of the Jira issue
+        required: true
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    name: Jira Example
+  
+    steps:
+    - name: Set up HashiCorp Vault 
+      uses: hashicorp/vault-action@v2 
+      with: 
+        #Reading secrets from Github secrets 
+        url: "${{ secrets.VAULT_URL }}" 
+        token: "${{ secrets.VAULT_SECRET }}" 
+        tlsSkipVerify: true 
+        #Reading secrets from hashicorp vault 
+        secrets: | 
+          secret/data/githubactions JIRA_BASE_URL |JIRA_BASE_URL;
+          secret/data/githubactions JIRA_USERNAME |JIRA_USERNAME;
+          secret/data/githubactions JIRA_TOKEN |JIRA_TOKEN
+    
+    - name: Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: ${{ env.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ env.JIRA_USERNAME }}
+        JIRA_API_TOKEN: ${{ env.JIRA_TOKEN }}
+    
+    - name: Create Jira Issue
+      id: create
+      uses: atlassian/gajira-create@v3
+      with:
+        project: ${{ inputs.project }}
+        issuetype: ${{ inputs.issue_type }}
+        summary: ${{ inputs.title }}
+        description: ${{ inputs.description }}
+
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"        

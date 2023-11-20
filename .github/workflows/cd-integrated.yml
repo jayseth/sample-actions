@@ -1,0 +1,14 @@
+name: CD - Integrated Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  selenium:
+    uses: ./.github/workflows/scrape.yml
+  
+  blazemeter:
+    uses: ./.github/workflows/blazemeter.yml
+    secrets: inherit
+    
