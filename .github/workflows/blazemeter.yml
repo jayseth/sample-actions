@@ -9,6 +9,7 @@ env:
   continuePipeline: "false"
   showTailLog: "false"
   reportName: Test1711
+  duration: 2
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -21,7 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Repo checkout
+        uses: actions/checkout@v3
 
       - name: Set up HashiCorp Vault 
         uses: hashicorp/vault-action@v2 
@@ -32,11 +34,11 @@ jobs:
           tlsSkipVerify: true 
           #Reading secrets from hashicorp vault 
           secrets: | 
-            secret/data/githubactions BLAZE_API_KEY | apiKey;
+            secret/data/githubactions BLAZE_API_KEY | apiKey ;
             secret/data/githubactions BLAZE_API_SECRET | apiSecret
       
       - name: Run Blazemeter test          
-        uses: BlazeRunner-BZR/Github-Action@v8.1
+        uses: BlazeRunner-BZR/Github-Action@v8.2
         id: run-test
         with:
           apiKey: ${{env.apiKey}}
@@ -49,3 +51,4 @@ jobs:
           reportName: ${{env.reportName}}
           continuePipeline: ${{env.continuePipeline}}
           showTailLog: ${{env.showTailLog}}
+          duration: ${{env.duration}}
