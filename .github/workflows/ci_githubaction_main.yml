@@ -20,8 +20,12 @@ jobs:
   Dependabot:
     uses: ./.github/workflows/dependabot_scanning.yml
 
+  Checkmarx:
+    uses: ./.github/workflows/checkmarx.yml
+    secrets: inherit
+
   JFROG_Publish:
     uses: ./.github/workflows/jfrog.yml
-    needs: [SonarScan, CodeQL, SonarJIRA, Dependabot]
+    needs: [SonarScan, CodeQL, SonarJIRA, Dependabot, Checkmarx]
     secrets: inherit
     
